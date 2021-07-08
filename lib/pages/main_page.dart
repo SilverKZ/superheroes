@@ -77,8 +77,25 @@ class MainPageStateWidget extends StatelessWidget {
           case MainPageState.minSymbols:
             return MinSymbolsWidget();
           case MainPageState.nothingFound:
+            return Center(
+              child: Text(
+                snapshot.data!.toString(),
+                style: TextStyle(
+                  color: SuperheroesColors.textColor,
+                ),
+              ),
+            );
           case MainPageState.loadingError:
+            return Center(
+              child: Text(
+                snapshot.data!.toString(),
+                style: TextStyle(
+                  color: SuperheroesColors.textColor,
+                ),
+              ),
+            );
           case MainPageState.searchResults:
+            return SearchResultsWidget();
           case MainPageState.favorites:
             return FavoritesWidget();
           default:
@@ -92,6 +109,51 @@ class MainPageStateWidget extends StatelessWidget {
             );
         }
       },
+    );
+  }
+}
+
+class SearchResultsWidget extends StatelessWidget {
+  const SearchResultsWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 90),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            "Search results",
+            style: TextStyle(
+              color: SuperheroesColors.textColor,
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SuperheroCard(
+            name: "Batman",
+            realName: "Bruce Wayne",
+            imageUrl: SuperheroesImages.batmanAvatar,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SuperheroCard(
+            name: "Venom",
+            realName: "Eddie Brock",
+            imageUrl: SuperheroesImages.venomAvatar,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -124,8 +186,7 @@ class FavoritesWidget extends StatelessWidget {
           child: SuperheroCard(
             name: "Batman",
             realName: "Bruce Wayne",
-            imageUrl:
-                "https://www.superherodb.com/pictures2/portraits/10/100/639.jpg",
+            imageUrl: SuperheroesImages.batmanAvatar,
           ),
         ),
         const SizedBox(height: 8),
@@ -134,8 +195,7 @@ class FavoritesWidget extends StatelessWidget {
           child: SuperheroCard(
             name: "Ironman",
             realName: "Tony Stark",
-            imageUrl:
-                "https://www.superherodb.com/pictures2/portraits/10/100/85.jpg",
+            imageUrl: SuperheroesImages.ironmanAvatar,
           ),
         ),
       ],
@@ -167,7 +227,7 @@ class NoFavoritesWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 9),
               child: Image.asset(
-                SuperheroesImages.ironManAvatar,
+                SuperheroesImages.ironManIcon,
                 width: 108,
                 height: 119,
               ),
