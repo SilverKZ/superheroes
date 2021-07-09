@@ -1,25 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:superheroes/pages/main_page.dart';
 import 'package:superheroes/resources/superheroes_colors.dart';
+import 'package:superheroes/widgets/action_button.dart';
 
 class SuperheroPage extends StatelessWidget {
-  const SuperheroPage({Key? key}) : super(key: key);
+
+  final String name;
+
+  const SuperheroPage({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: SuperheroesColors.background,
       body: SafeArea(
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            "Batman",
-            style: TextStyle(
-              color: SuperheroesColors.textColor,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: SuperheroesColors.textColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
-          ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: ActionButton(
+                  text: "Back",
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

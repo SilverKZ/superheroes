@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:superheroes/blocs/main_bloc.dart';
-import 'package:superheroes/pages/superhero_page.dart';
 import 'package:superheroes/resources/superheroes_colors.dart';
 import 'package:superheroes/resources/superheroes_images.dart';
 import 'package:superheroes/widgets/action_button.dart';
+import 'package:superheroes/widgets/info_with_button.dart';
 import 'package:superheroes/widgets/superhero_card.dart';
 
 class MainPage extends StatefulWidget {
@@ -74,19 +74,37 @@ class MainPageStateWidget extends StatelessWidget {
           case MainPageState.loading:
             return LoadingIndicator();
           case MainPageState.noFavorites:
-            return NoFavoritesWidget();
+            // return NoFavoritesWidget();
+            return InfoWithButton(
+              title: "No favorites yet",
+              subtitle: "Search and add",
+              buttonText: "Search",
+              assetImage: SuperheroesImages.ironManIcon,
+              imageHeight: 119,
+              imageWidth: 108,
+              imageTopPadding: 9,
+            );
           case MainPageState.minSymbols:
             return MinSymbolsWidget();
           case MainPageState.nothingFound:
-            return SuperheroPage();
+            return InfoWithButton(
+              title: "Nothing found",
+              subtitle: "Search for something else",
+              buttonText: "Search",
+              assetImage: SuperheroesImages.hulkAvatar,
+              imageHeight: 112,
+              imageWidth: 84,
+              imageTopPadding: 16,
+            );
           case MainPageState.loadingError:
-            return Center(
-              child: Text(
-                snapshot.data!.toString(),
-                style: TextStyle(
-                  color: SuperheroesColors.textColor,
-                ),
-              ),
+            return InfoWithButton(
+              title: "Error happened",
+              subtitle: "Please, try again",
+              buttonText: "Retry",
+              assetImage: SuperheroesImages.supermanAvatar,
+              imageHeight: 106,
+              imageWidth: 126,
+              imageTopPadding: 22,
             );
           case MainPageState.searchResults:
             return SearchResultsWidget();
@@ -136,7 +154,7 @@ class SearchResultsWidget extends StatelessWidget {
             name: "Batman",
             realName: "Bruce Wayne",
             imageUrl: SuperheroesImages.batmanAvatar,
-            onTap: () => SuperheroPage(),
+            onTap: () => {},
           ),
         ),
         const SizedBox(height: 8),
@@ -197,65 +215,6 @@ class FavoritesWidget extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class NoFavoritesWidget extends StatelessWidget {
-  const NoFavoritesWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Stack(children: [
-            Container(
-              width: 108,
-              height: 108,
-              decoration: BoxDecoration(
-                color: SuperheroesColors.backgroundIcon,
-                shape: BoxShape.circle,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 9),
-              child: Image.asset(
-                SuperheroesImages.ironManIcon,
-                width: 108,
-                height: 119,
-              ),
-            ),
-          ]),
-          const SizedBox(height: 20),
-          Text(
-            "No favorites yet",
-            style: TextStyle(
-              color: SuperheroesColors.textColor,
-              fontSize: 32,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            "Search and add".toUpperCase(),
-            style: TextStyle(
-              color: SuperheroesColors.textColor,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 30),
-          ActionButton(
-            text: "Search",
-            onTap: () => {},
-          ),
-        ],
-      ),
     );
   }
 }

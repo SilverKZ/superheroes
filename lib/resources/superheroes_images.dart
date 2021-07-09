@@ -8,4 +8,6 @@ class SuperheroesImages {
       "https://www.superherodb.com/pictures2/portraits/10/100/85.jpg";
   static const venomAvatar =
       "https://www.superherodb.com/pictures2/portraits/10/100/22.jpg";
+  static const hulkAvatar = "assets/images/hulk.png";
+  static const supermanAvatar = "assets/images/superman.png";
 }
