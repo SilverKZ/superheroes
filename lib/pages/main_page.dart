@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:superheroes/blocs/main_bloc.dart';
+import 'package:superheroes/pages/superhero_page.dart';
 import 'package:superheroes/resources/superheroes_colors.dart';
 import 'package:superheroes/resources/superheroes_images.dart';
 import 'package:superheroes/widgets/action_button.dart';
@@ -77,14 +78,7 @@ class MainPageStateWidget extends StatelessWidget {
           case MainPageState.minSymbols:
             return MinSymbolsWidget();
           case MainPageState.nothingFound:
-            return Center(
-              child: Text(
-                snapshot.data!.toString(),
-                style: TextStyle(
-                  color: SuperheroesColors.textColor,
-                ),
-              ),
-            );
+            return SuperheroPage();
           case MainPageState.loadingError:
             return Center(
               child: Text(
@@ -142,7 +136,7 @@ class SearchResultsWidget extends StatelessWidget {
             name: "Batman",
             realName: "Bruce Wayne",
             imageUrl: SuperheroesImages.batmanAvatar,
-            onTap: () => {},
+            onTap: () => SuperheroPage(),
           ),
         ),
         const SizedBox(height: 8),
