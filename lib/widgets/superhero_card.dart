@@ -1,19 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:superheroes/blocs/main_bloc.dart';
 import 'package:superheroes/pages/superhero_page.dart';
 import 'package:superheroes/resources/superheroes_colors.dart';
 
 class SuperheroCard extends StatelessWidget {
-  final String name;
-  final String realName;
-  final String imageUrl;
+  final SuperheroInfo superheroInfo;
   final VoidCallback onTap;
 
   SuperheroCard({
     Key? key,
-    required this.name,
-    required this.realName,
-    required this.imageUrl,
+    required this.superheroInfo,
     required this.onTap,
   }) : super(key: key);
 
@@ -24,17 +21,21 @@ class SuperheroCard extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => SuperheroPage(name: name),
+            builder: (context) => SuperheroPage(name: superheroInfo.name),
           ),
         );
       },
       child: Container(
         height: 70,
-        color: SuperheroesColors.backgroundCard,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: SuperheroesColors.backgroundCard,
+        ),
         child: Row(
           children: [
             Image.network(
-              imageUrl,
+              superheroInfo.imageUrl,
               width: 70,
               height: 70,
               fit: BoxFit.cover,
@@ -46,7 +47,7 @@ class SuperheroCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name.toUpperCase(),
+                    superheroInfo.name.toUpperCase(),
                     style: TextStyle(
                       color: SuperheroesColors.textColor,
                       fontSize: 16,
@@ -54,7 +55,7 @@ class SuperheroCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    realName,
+                    superheroInfo.realName,
                     style: TextStyle(
                       color: SuperheroesColors.textColor,
                       fontSize: 14,
