@@ -109,11 +109,9 @@ class _SearchWidgetState extends State<SearchWidget> {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          // borderSide: BorderSide(color: SuperheroesColors.borderTextField),
-          borderSide: BorderSide(color: Color(0x3dffffff), width: 1),
-          // _searchText.isNotEmpty
-          //     ? BorderSide(color: Colors.white, width: 2)
-          //     : BorderSide(color: SuperheroesColors.borderTextField, width: 2),
+          borderSide: _searchText.isNotEmpty
+              ? BorderSide(color: Color(0xffffffff), width: 2)
+              : BorderSide(color: Color(0x3dffffff), width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
