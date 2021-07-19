@@ -97,6 +97,7 @@ class MainBloc {
       favoriteSuperheroesSubject =
           BehaviorSubject<List<SuperheroInfo>>.seeded(list);
     }
+    stateSubject.add(MainPageState.favorites);
   }
 
   void dispose() {

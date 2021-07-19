@@ -110,9 +110,10 @@ class _SearchWidgetState extends State<SearchWidget> {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           // borderSide: BorderSide(color: SuperheroesColors.borderTextField),
-          borderSide: _searchText.isNotEmpty
-              ? BorderSide(color: Colors.white, width: 2)
-              : BorderSide(color: SuperheroesColors.borderTextField),
+          borderSide: BorderSide(color: Colors.white, width: 2),
+          // _searchText.isNotEmpty
+          //     ? BorderSide(color: Colors.white, width: 2)
+          //     : BorderSide(color: SuperheroesColors.borderTextField, width: 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -168,12 +169,13 @@ class MainPageStateWidget extends StatelessWidget {
 }
 
 class FavoritesWidget extends StatelessWidget {
+
+  final MainBloc bloc;
+
   const FavoritesWidget({
     Key? key,
     required this.bloc,
   }) : super(key: key);
-
-  final MainBloc bloc;
 
   @override
   Widget build(BuildContext context) {
