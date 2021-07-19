@@ -7,7 +7,7 @@ class MainBloc {
   static const minSymbol = 3;
 
   final stateSubject = BehaviorSubject<MainPageState>();
-  final favoriteSuperheroesSubject =
+  var favoriteSuperheroesSubject =
       BehaviorSubject<List<SuperheroInfo>>.seeded(SuperheroInfo.mocked);
   final searchedSuperheroesSubject = BehaviorSubject<List<SuperheroInfo>>();
   final currentTextSubject = BehaviorSubject<String>.seeded("");
@@ -31,7 +31,6 @@ class MainBloc {
         } else {
           stateSubject.add(MainPageState.noFavorites);
         }
-
       } else if (value.searchText.length < minSymbol) {
         stateSubject.add(MainPageState.minSymbols);
       } else {
@@ -66,7 +65,7 @@ class MainBloc {
   Future<List<SuperheroInfo>> search(final String text) async {
     await Future.delayed(Duration(seconds: 1));
     List<SuperheroInfo> searchResult = [];
-    for(SuperheroInfo item in SuperheroInfo.mocked) {
+    for (SuperheroInfo item in SuperheroInfo.mocked) {
       if (item.name.toLowerCase().indexOf(text.toLowerCase()) != -1) {
         searchResult.add(item);
       }
@@ -86,6 +85,18 @@ class MainBloc {
 
   void updateText(final String? text) {
     currentTextSubject.add(text ?? "");
+  }
+
+  void removeFavorite() {
+    if (favoriteSuperheroesSubject.value.isEmpty) {
+      favoriteSuperheroesSubject =
+          BehaviorSubject<List<SuperheroInfo>>.seeded(SuperheroInfo.mocked);
+    } else {
+      List<SuperheroInfo> list = [...favoriteSuperheroesSubject.value];
+      list.removeLast();
+      favoriteSuperheroesSubject =
+          BehaviorSubject<List<SuperheroInfo>>.seeded(list);
+    }
   }
 
   void dispose() {
@@ -150,66 +161,6 @@ class SuperheroInfo {
       name: "Venom",
       realName: "Eddie Brock",
       imageUrl: SuperheroesImages.venomAvatar,
-    ),
-    SuperheroInfo(
-      name: "Batman",
-      realName: "Bruce Wayne",
-      imageUrl: SuperheroesImages.batmanAvatar,
-    ),
-    SuperheroInfo(
-      name: "Ironman",
-      realName: "Tony Stark",
-      imageUrl: SuperheroesImages.ironmanAvatar,
-    ),
-    SuperheroInfo(
-      name: "Venom",
-      realName: "Eddie Brock",
-      imageUrl: SuperheroesImages.venomAvatar,
-    ),
-    SuperheroInfo(
-      name: "Batman",
-      realName: "Bruce Wayne",
-      imageUrl: SuperheroesImages.batmanAvatar,
-    ),
-    SuperheroInfo(
-      name: "Ironman",
-      realName: "Tony Stark",
-      imageUrl: SuperheroesImages.ironmanAvatar,
-    ),
-    SuperheroInfo(
-      name: "Venom",
-      realName: "Eddie Brock",
-      imageUrl: SuperheroesImages.venomAvatar,
-    ),
-    SuperheroInfo(
-      name: "Venom",
-      realName: "Eddie Brock",
-      imageUrl: SuperheroesImages.venomAvatar,
-    ),
-    SuperheroInfo(
-      name: "Venom",
-      realName: "Eddie Brock",
-      imageUrl: SuperheroesImages.venomAvatar,
-    ),
-    SuperheroInfo(
-      name: "Venom",
-      realName: "Eddie Brock",
-      imageUrl: SuperheroesImages.venomAvatar,
-    ),
-    SuperheroInfo(
-      name: "Venom",
-      realName: "Eddie Brock",
-      imageUrl: SuperheroesImages.venomAvatar,
-    ),
-    SuperheroInfo(
-      name: "Venom",
-      realName: "Eddie Brock",
-      imageUrl: SuperheroesImages.venomAvatar,
-    ),
-    SuperheroInfo(
-      name: "Ironman",
-      realName: "Tony Stark",
-      imageUrl: SuperheroesImages.ironmanAvatar,
     ),
   ];
 }
