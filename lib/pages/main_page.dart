@@ -60,25 +60,28 @@ class SearchWidget extends StatefulWidget {
 
 class _SearchWidgetState extends State<SearchWidget> {
   final TextEditingController controller = TextEditingController();
-  String _searchText = "";
+  bool isEmptySearchText = true;
 
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
       final MainBloc bloc = Provider.of<MainBloc>(context, listen: false);
-      controller.addListener(() => bloc.updateText(controller.text));
+      controller.addListener(() {
+        bloc.updateText(controller.text);
+        final isEmptyText = controller.text.isEmpty;
+        if (isEmptySearchText != isEmptyText) {
+          setState(() {
+            isEmptySearchText = isEmptyText;
+          });
+        }
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onSubmitted: (text) {
-        setState(() {
-          _searchText = text;
-        });
-      },
       controller: controller,
       style: TextStyle(
         fontWeight: FontWeight.w400,
@@ -109,9 +112,9 @@ class _SearchWidgetState extends State<SearchWidget> {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: _searchText.isNotEmpty
-              ? BorderSide(color: Color(0xffffffff), width: 2)
-              : BorderSide(color: Color(0x3dffffff), width: 1),
+          borderSide: isEmptySearchText
+              ? BorderSide(color: Color(0x3dffffff), width: 1)
+              : BorderSide(color: Color(0xffffffff), width: 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -167,7 +170,6 @@ class MainPageStateWidget extends StatelessWidget {
 }
 
 class FavoritesWidget extends StatelessWidget {
-
   final MainBloc bloc;
 
   const FavoritesWidget({
@@ -201,7 +203,6 @@ class FavoritesWidget extends StatelessWidget {
 }
 
 class SearchResultsWidget extends StatelessWidget {
-
   final MainBloc bloc;
 
   const SearchResultsWidget({
@@ -238,7 +239,6 @@ class LoadingErrorWidget extends StatelessWidget {
 }
 
 class NoFavoritesWidget extends StatelessWidget {
-
   final MainBloc bloc;
 
   const NoFavoritesWidget({
